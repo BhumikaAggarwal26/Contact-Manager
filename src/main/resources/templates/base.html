@@ -17,10 +17,8 @@
 </head>
 <body class="bg-gray-100 dark:bg-gray-900 dark:text-white">
         
-        <!-- Navbar  -->
-        <div data-th-replace="navbar :: navbar"></div>
-        <!-- Navbar end -->
-
+        <div data-th-replace="~{navbar :: navbar}"></div>
+    
         <div class="container">
             <div data-th-replace="${content}"></div>
         </div>
