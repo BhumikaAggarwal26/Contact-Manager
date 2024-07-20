@@ -1,5 +1,7 @@
 package com.scm.contactManager.controllers;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,8 +12,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.scm.contactManager.entities.User;
 import com.scm.contactManager.forms.UserForm;
+import com.scm.contactManager.helpers.Message;
+import com.scm.contactManager.helpers.MessageType;
 import com.scm.contactManager.services.UserService;
 
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 
@@ -20,6 +25,8 @@ public class PageController {
 
         @Autowired
         private UserService userService;
+
+        private Logger logger = LoggerFactory.getLogger(PageController.class);
     
         @RequestMapping("/home")
         public String home(Model model){
@@ -62,7 +69,7 @@ public class PageController {
         }
 
         @RequestMapping(value="/addNewUser", method=RequestMethod.POST)
-        public String addNewUser(@Valid @ModelAttribute UserForm userForm, BindingResult rBindingResult) {
+        public String addNewUser(@Valid @ModelAttribute UserForm userForm, BindingResult rBindingResult, HttpSession session) {
             
             if(rBindingResult.hasErrors()){
                 return "signup";
@@ -78,6 +85,14 @@ public class PageController {
             user.setProfilePic("/resources/static/images/default_ProfilePic.jpg");
 
             User savedUser = userService.saveUser(user);
+
+            logger.info("New User Saved Successfully!!");
+             
+            Message message = new Message();
+            message.setContent("Registration Successful");
+            message.setType(MessageType.green);
+
+            session.setAttribute("message", message);
 
             return new String("redirect:/signup");
         }
