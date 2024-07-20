@@ -3,6 +3,7 @@ package com.scm.contactManager.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -10,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.scm.contactManager.entities.User;
 import com.scm.contactManager.forms.UserForm;
 import com.scm.contactManager.services.UserService;
+
+import jakarta.validation.Valid;
 
 
 @Controller
@@ -59,8 +62,12 @@ public class PageController {
         }
 
         @RequestMapping(value="/addNewUser", method=RequestMethod.POST)
-        public String addNewUser(@ModelAttribute UserForm userForm) {
+        public String addNewUser(@Valid @ModelAttribute UserForm userForm, BindingResult rBindingResult) {
             
+            if(rBindingResult.hasErrors()){
+                return "signup";
+            }
+
             User user = new User();
              
             user.setName(userForm.getName());
@@ -71,8 +78,6 @@ public class PageController {
             user.setProfilePic("/resources/static/images/default_ProfilePic.jpg");
 
             User savedUser = userService.saveUser(user);
-
-            System.out.println("User saved");
 
             return new String("redirect:/signup");
         }
