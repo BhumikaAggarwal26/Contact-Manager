@@ -7,6 +7,7 @@ import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -27,10 +28,25 @@ public class SecurityConfig {
                 authorize.anyRequest().permitAll();                      // permit all other
             });
 
-            httpSecurity.formLogin(Customizer.withDefaults()); // Using default Login Page
+            // httpSecurity.formLogin(Customizer.withDefaults()); // Using default Login Page
+
+            httpSecurity.formLogin(formLogin -> {
+
+                formLogin.loginPage("/login")
+                .loginProcessingUrl("/authenticate")
+                .usernameParameter("email")
+                .passwordParameter("password")
+                .successForwardUrl("/user/dashboard");
+
+            });
+
+            //TODO: enable it later
+            httpSecurity.csrf(AbstractHttpConfigurer::disable);
 
             return httpSecurity.build();
         }
+
+        
 
 
         @Bean
