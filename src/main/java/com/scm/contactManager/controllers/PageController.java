@@ -20,6 +20,7 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 
+
 @Controller
 public class PageController {
 
@@ -27,21 +28,20 @@ public class PageController {
         private UserService userService;
 
         private Logger logger = LoggerFactory.getLogger(PageController.class);
+
+        @RequestMapping("/")
+        public String index() {
+            return new String("redirect:/home");
+        }
+        
     
         @RequestMapping("/home")
-        public String home(Model model){
-            System.out.println("Home Page Handler");
-            
-            //Sending data to View
-            model.addAttribute("project", "Contact Manager Project");
-            model.addAttribute("gitHubLink", "https://github.com/BhumikaAggarwal26");
-            
+        public String home(){
             return "home";  // return required html page
         }
 
         @RequestMapping("/about")
-        public String aboutPage(Model model) {
-            model.addAttribute("isLogin", true);
+        public String aboutPage() {
             return "about";
         }
 
