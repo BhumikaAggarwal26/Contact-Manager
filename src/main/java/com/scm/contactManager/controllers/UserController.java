@@ -1,6 +1,8 @@
 package com.scm.contactManager.controllers;
 
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 
@@ -9,12 +11,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class UserController {
     
     @RequestMapping("/dashboard")
-    public String userDashboard() {
+    public String userDashboard(Model model, Authentication authentication) {
         return new String("user/dashboard");
     }
 
     @RequestMapping("/profile")
-    public String userProfile() {
+    public String userProfile(Model model, Authentication authentication) {
         return new String("user/profile");
     }
     

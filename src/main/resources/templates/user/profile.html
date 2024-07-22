@@ -1,13 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-th-replace="~{base :: parent(~{::title}, ~{::#content},~{::script} )}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile</title>
+    <title data-th-text="${loggedInUser.name}">Profile</title>
 </head>
 <body>
-    <div>
+    <div id="content">
         <h1> This is my Profile.</h1>
+
+        <div th:if="${loggedInUser}">
+            I am loggedIN
+        </div>
     </div>
+    <script>console.log("Profile page")</script>
 </body>
 </html>
