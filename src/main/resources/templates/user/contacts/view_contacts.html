@@ -59,7 +59,7 @@
                             </td>
                             <td class="px-6 py-4">
                                 <div class="flex"> 
-                                    <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline"><i class="fa-solid w-6 h-6 fa-pen"></i> </a>
+                                    <a data-th-href="@{'/user/view/'+*{id}}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline"><i class="fa-solid w-6 h-6 fa-pen"></i> </a>
                                     <a data-th-href="@{'/user/deleteContact/'+*{id}}" onclick="return  confirm('Are you sure you want to delete this contact?');" class="px-2 font-medium text-red-600 dark:red-blue-500 hover:underline"><i class="fa-solid w-6 h-6 fa-trash"></i> </a>
                                     <a href="#" class="font-medium text-green-600 dark:text-green-500 hover:underline"><i class="fa-solid w-6 h-6 fa-eye"></i> </a>
                                 </div>

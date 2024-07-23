@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.scm.contactManager.entities.Contacts;
 import com.scm.contactManager.entities.User;
@@ -121,5 +122,51 @@ public class ContactController {
         return "redirect:/user/viewContacts";
     }
     
+    @GetMapping("/view/{contactId}")
+    public String updateContactFormView(@PathVariable("contactId") String contactId, Model model) {
+
+        var contact = contactService.getById(contactId);
+
+        ContactFormDTO contactFormDTO = new ContactFormDTO();
+        contactFormDTO.setName(contact.getName());
+        contactFormDTO.setEmail(contact.getEmail());
+        contactFormDTO.setPhoneNumber(contact.getPhoneNumber());
+        contactFormDTO.setAddress(contact.getAddress());
+        contactFormDTO.setDescription(contact.getDescription());
+        contactFormDTO.setFavorite(contact.isFavorite());
+        contactFormDTO.setLinkedInLink(contact.getLinkedInLink());
+        
+        model.addAttribute("contactFormDTO", contactFormDTO);
+        model.addAttribute("contactId", contactId);
+
+        return "user/contacts/update_contact_view";
+    }
+
+    @PostMapping("/updateContact/{contactId}")
+    public String updateContact(@PathVariable("contactId") String contactId, @Valid @ModelAttribute ContactFormDTO contactFormDTO, BindingResult bindingResult, Model model) {
+
+        if (bindingResult.hasErrors()) {
+            return "user/update_contact_view";
+        }
+
+        var contact = contactService.getById(contactId);
+
+        contact.setId(contactId);
+        contact.setName(contactFormDTO.getName());
+        contact.setEmail(contactFormDTO.getEmail());
+        contact.setPhoneNumber(contactFormDTO.getPhoneNumber());
+        contact.setAddress(contactFormDTO.getAddress());
+        contact.setDescription(contactFormDTO.getDescription());
+        contact.setFavorite(contactFormDTO.isFavorite());
+        contact.setLinkedInLink(contactFormDTO.getLinkedInLink());
+
+
+        var updateContact = contactService.updateContacts(contact);
+        logger.info("Updated Contact {}", updateContact);
+
+        model.addAttribute("message", Message.builder().content("Contact Updated !!").type(MessageType.green).build());
+
+        return "redirect:/user/viewContacts";
+    }
 
 }
