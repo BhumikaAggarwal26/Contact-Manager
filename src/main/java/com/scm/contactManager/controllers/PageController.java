@@ -62,14 +62,14 @@ public class PageController {
 
         @RequestMapping("/signup")
         public String signup(Model model) {
-            UserFormDTO userForm = new UserFormDTO();
-            model.addAttribute("userForm", userForm);  // this blank attribute used during loading of signup page
+            UserFormDTO userFormDTO = new UserFormDTO();
+            model.addAttribute("userFormDTO", userFormDTO);  // this blank attribute used during loading of signup page
                                                        // during submit -> data added to these field and goes to addNewUser
             return new String("signup");
         }
 
         @RequestMapping(value="/addNewUser", method=RequestMethod.POST)
-        public String addNewUser(@Valid @ModelAttribute UserFormDTO userForm, BindingResult rBindingResult, HttpSession session) {
+        public String addNewUser(@Valid @ModelAttribute UserFormDTO userFormDTO, BindingResult rBindingResult, HttpSession session) {
             
             if(rBindingResult.hasErrors()){
                 return "signup";
@@ -77,11 +77,11 @@ public class PageController {
 
             User user = new User();
              
-            user.setName(userForm.getName());
-            user.setEmail(userForm.getEmail());
-            user.setPassword(userForm.getPassword());
-            user.setPhoneNumber(userForm.getPhoneNumber());
-            user.setAbout(userForm.getAbout());
+            user.setName(userFormDTO.getName());
+            user.setEmail(userFormDTO.getEmail());
+            user.setPassword(userFormDTO.getPassword());
+            user.setPhoneNumber(userFormDTO.getPhoneNumber());
+            user.setAbout(userFormDTO.getAbout());
             user.setProfilePic("/resources/static/images/default_ProfilePic.jpg");
 
             User savedUser = userService.saveUser(user);

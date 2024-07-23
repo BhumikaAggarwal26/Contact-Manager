@@ -20,7 +20,7 @@
                     Start managing contacts on cloud ...
                 </p>
 
-                <form data-th-action="@{'/addNewUser'}" method="post" class="mt-5" data-th-object="${userForm}" novalidate>
+                <form data-th-action="@{'/addNewUser'}" method="post" class="mt-5" data-th-object="${userFormDTO}" novalidate>
                     
                     <div data-th-replace="~{message :: message}"></div>
                     

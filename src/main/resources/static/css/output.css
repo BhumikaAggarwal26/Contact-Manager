@@ -920,6 +920,11 @@ video {
   border-color: rgb(17 24 39 / var(--tw-border-opacity));
 }
 
+.border-gray-700 {
+  --tw-border-opacity: 1;
+  border-color: rgb(55 65 81 / var(--tw-border-opacity));
+}
+
 .bg-\[\#4285F4\] {
   --tw-bg-opacity: 1;
   background-color: rgb(66 133 244 / var(--tw-bg-opacity));
