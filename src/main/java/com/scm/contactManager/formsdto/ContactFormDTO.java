@@ -1,4 +1,4 @@
-package com.scm.contactManager.forms;
+package com.scm.contactManager.formsdto;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -16,7 +16,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class ContactForm {
+public class ContactFormDTO {
 
     
      @NotBlank(message = "Name is required")

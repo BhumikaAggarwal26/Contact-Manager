@@ -1,5 +1,7 @@
 package com.scm.contactManager.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -11,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.scm.contactManager.entities.Contacts;
 import com.scm.contactManager.entities.User;
-import com.scm.contactManager.forms.ContactForm;
+import com.scm.contactManager.formsdto.ContactFormDTO;
 import com.scm.contactManager.helpers.Helper;
 import com.scm.contactManager.helpers.Message;
 import com.scm.contactManager.helpers.MessageType;
@@ -20,6 +22,9 @@ import com.scm.contactManager.services.UserService;
 
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
+import org.springframework.web.bind.annotation.GetMapping;
+
+
 
 
 @Controller
@@ -35,7 +40,7 @@ public class ContactController {
     @RequestMapping("/addContact")
     public String addNewContact(Model model) {
 
-        ContactForm contactForm = new ContactForm();
+        ContactFormDTO contactForm = new ContactFormDTO();
 
         model.addAttribute("contactForm", contactForm);
     
@@ -43,7 +48,7 @@ public class ContactController {
     }
 
     @PostMapping("/saveContact")
-    public String saveNewContact(@Valid @ModelAttribute ContactForm contactForm, BindingResult result, HttpSession session, Authentication authentication) {
+    public String saveNewContact(@Valid @ModelAttribute ContactFormDTO contactForm, BindingResult result, HttpSession session, Authentication authentication) {
 
         if(result.hasErrors()){
             session.setAttribute("message", Message.builder()
@@ -74,7 +79,19 @@ public class ContactController {
 
         return new String("redirect:/user/addContact");
     }
-    
+
+    @GetMapping("/viewContacts")
+    public String viewAllContacts(Model model, Authentication authentication) {
+
+        String username = Helper.getEmailOfLoggedInUser(authentication);
+        User user = userService.getUserByEmail(username);
+
+        List<Contacts> contacts = contactService.getByUserId(user.getUserId());
+
+        model.addAttribute("allContactsOfUser", contacts);
+
+        return new String("user/contacts/view_contacts");
+    }
     
 
 }

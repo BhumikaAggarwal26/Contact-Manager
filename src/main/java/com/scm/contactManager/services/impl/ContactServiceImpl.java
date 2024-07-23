@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.scm.contactManager.entities.Contacts;
+import com.scm.contactManager.helpers.ResourceNotFoundException;
 import com.scm.contactManager.repositories.ContactRepo;
 import com.scm.contactManager.services.ContactService;
 
@@ -32,20 +33,23 @@ public class ContactServiceImpl implements ContactService{
 
     @Override
     public void delete(String id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'delete'");
+        var contact = contactRepo.findById(id).orElseThrow(()->new ResourceNotFoundException("Contact Not Found with given ID:" + id));
+        contactRepo.delete(contact);
     }
 
     @Override
     public List<Contacts> getAll() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getAll'");
+        return contactRepo.findAll();
     }
 
     @Override
     public Contacts getById(String id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getById'");
+        return contactRepo.findById(id).orElseThrow(()-> new ResourceNotFoundException("Contact Not Found with given ID:" + id));
+    }
+
+    @Override
+    public List<Contacts> getByUserId(String userId) {
+       return contactRepo.findByUserId(userId);
     }
 
 }

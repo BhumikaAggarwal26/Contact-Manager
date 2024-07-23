@@ -16,4 +16,6 @@ public interface ContactService {
 
     Contacts getById(String id);
 
+    List<Contacts> getByUserId(String userId);
+
 }

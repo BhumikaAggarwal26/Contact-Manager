@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.scm.contactManager.entities.User;
-import com.scm.contactManager.forms.UserForm;
+import com.scm.contactManager.formsdto.UserFormDTO;
 import com.scm.contactManager.helpers.Message;
 import com.scm.contactManager.helpers.MessageType;
 import com.scm.contactManager.services.UserService;
@@ -62,14 +62,14 @@ public class PageController {
 
         @RequestMapping("/signup")
         public String signup(Model model) {
-            UserForm userForm = new UserForm();
+            UserFormDTO userForm = new UserFormDTO();
             model.addAttribute("userForm", userForm);  // this blank attribute used during loading of signup page
                                                        // during submit -> data added to these field and goes to addNewUser
             return new String("signup");
         }
 
         @RequestMapping(value="/addNewUser", method=RequestMethod.POST)
-        public String addNewUser(@Valid @ModelAttribute UserForm userForm, BindingResult rBindingResult, HttpSession session) {
+        public String addNewUser(@Valid @ModelAttribute UserFormDTO userForm, BindingResult rBindingResult, HttpSession session) {
             
             if(rBindingResult.hasErrors()){
                 return "signup";

@@ -1,5 +1,7 @@
 package com.scm.contactManager.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -31,6 +33,7 @@ public class Contacts {
     private String linkedInLink;
 
     @ManyToOne
+    @JsonIgnore
     private User user;
 
 }

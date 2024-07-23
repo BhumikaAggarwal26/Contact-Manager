@@ -1,4 +1,4 @@
-package com.scm.contactManager.forms;
+package com.scm.contactManager.formsdto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -16,7 +16,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @Builder
 @ToString
-public class UserForm {
+public class UserFormDTO {
 
     @NotBlank(message = "Username is required")
     @Size(min=3, message = "Min 3 characters required")
