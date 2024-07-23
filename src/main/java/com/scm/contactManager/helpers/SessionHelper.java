@@ -13,7 +13,7 @@ public class SessionHelper {
 
     private static Logger logger = LoggerFactory.getLogger(SessionHelper.class);
 
-    public static void removeSignUpMessage(){
+    public static void removeMessage(){
         try{
                 HttpSession session = ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest().getSession();
                 session.removeAttribute("message");

@@ -1,5 +1,5 @@
-<div data-th-fragment="signup_message" data-th-if="${session.message}" data-th-object="${session.message}" data-th-classappend="*{'p-4 mb-4 text-sm text-'+type+'-800 rounded-lg bg-'+type+'-50 dark:bg-'+type+'-800 dark:text-'+type+'-400'}" role="alert">
+<div data-th-fragment="message" data-th-if="${session.message}" data-th-object="${session.message}" data-th-classappend="*{'p-4 mb-4 text-sm text-'+type+'-800 rounded-lg bg-'+type+'-50 dark:bg-'+type+'-800 dark:text-'+type+'-400'}" role="alert">
     <span class="font-medium">Info!</span> <span data-th-text="*{content}"></span>
 
-    <data-th-block data-th-text="${@sessionHelper.removeSignUpMessage()}"></data-th-block>
+    <data-th-block data-th-text="${@sessionHelper.removeMessage()}"></data-th-block>
 </div>

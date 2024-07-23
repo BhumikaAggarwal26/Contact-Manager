@@ -30,64 +30,71 @@
                             client from scm...
                         </p>
 
-                        <form action="" class="mt-8">
+                        <form data-th-action="@{'/user/saveContact'}" class="mt-8" data-th-object="${contactForm}" method="POST">
+                            
+                            <div data-th-replace="~{message :: message}"></div>
+                            
                             <div class="mb-3">
-                                <label for="email-address-icon" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Contact Name</label>
+                                <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Contact Name</label>
                                 <div class="relative">
                                     <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
                                         <i class="fa-regular w-4 h-4 fa-user"></i>
                                     </div>
-                                    <input type="text" id="email-address-icon" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@flowbite.com">
+                                    <input type="text" id="name" data-th-field="*{name}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@flowbite.com">
                                 </div>
+                                <p data-th-if="${#fields.hasErrors('name')}" data-th-errors="*{name}" class="text-red-600 px-1 py-1"></p>
                             </div>
 
                             <div class="mb-3">
-                                <label for="email-address-icon" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Contact Email</label>
+                                <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Contact Email</label>
                                 <div class="relative">
                                     <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
                                         <i class="fa-regular w-4 h-4 fa-envelope"></i>
                                     </div>
-                                    <input type="text" id="email-address-icon" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@flowbite.com">
+                                    <input type="text" id="email" data-th-field="*{email}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@flowbite.com">
                                 </div>
+                                <p data-th-if="${#fields.hasErrors('email')}" data-th-errors="*{email}" class="text-red-600 px-1 py-1"></p>
                             </div>
 
                             <div class="mb-3">
-                                <label for="email-address-icon" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone Number</label>
+                                <label for="phoneNumber" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone Number</label>
                                 <div class="relative">
                                     <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
                                         <i class="fa-solid w-4 h-4 fa-phone"></i>
                                     </div>
-                                    <input type="text" id="email-address-icon" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@flowbite.com">
+                                    <input type="text" id="phoneNumber" data-th-field="*{phoneNumber}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@flowbite.com">
                                 </div>
+                                <p data-th-if="${#fields.hasErrors('phoneNumber')}" data-th-errors="*{phoneNumber}" class="text-red-600 px-1 py-1"></p>
                             </div>
 
                             <div class="mb-3">
-                                <label for="email-address-icon" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Address</label>
-                                <textarea id="message" rows="3" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write address of your contact..."></textarea>
+                                <label for="address" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Address</label>
+                                <textarea id="address" rows="3" data-th-field="*{address}" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write address of your contact..."></textarea>
+                                <p data-th-if="${#fields.hasErrors('address')}" data-th-errors="*{address}" class="text-red-600 px-1 py-1"></p>
                             </div>
 
                             <div class="mb-3">
-                                <label for="email-address-icon" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Contact Description</label>
-                                <textarea id="message" rows="5" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write something about your contact..."></textarea>
+                                <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Contact Description</label>
+                                <textarea id="description" rows="5" data-th-field="*{description}" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write something about your contact..."></textarea>
                             </div>
 
                             <div class="mb-3">
-                                <label for="email-address-icon" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">LinkedIn Profile Link</label>
+                                <label for="linkedInLink" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">LinkedIn Profile Link</label>
                                 <div class="relative">
                                     <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
                                         <i class="fa-brands w-4 h-4 fa-linkedin"></i>
                                     </div>
-                                    <input type="text" id="email-address-icon" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@flowbite.com">
+                                    <input type="text" id="linkedInLink" data-th-field="*{linkedInLink}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@flowbite.com">
                                 </div>
                             </div>
 
                             <div class="mb-3">
-                                <label for="email-address-icon" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Upload Contact Image</label>
+                                <label for="picture" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Upload Contact Image</label>
                                 <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="file_input" type="file">
                             </div>
 
                             <div class="flex items-center mb-3">
-                                <input id="default-checkbox" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                <input data-th-field="*{favorite}" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                                 <label for="default-checkbox" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Add this Contact to Favourites?</label>
                             </div>
 
